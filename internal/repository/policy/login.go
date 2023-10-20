@@ -21,6 +21,7 @@ type LoginPolicyAddedEvent struct {
 	AllowUserNamePassword      bool                    `json:"allowUsernamePassword,omitempty"`
 	AllowRegister              bool                    `json:"allowRegister,omitempty"`
 	AllowExternalIDP           bool                    `json:"allowExternalIdp,omitempty"`
+	HideExternalIDPs           bool                    `json:"hideExternalIdps,omitempty"`
 	ForceMFA                   bool                    `json:"forceMFA,omitempty"`
 	ForceMFALocalOnly          bool                    `json:"forceMFALocalOnly,omitempty"`
 	HidePasswordReset          bool                    `json:"hidePasswordReset,omitempty"`
@@ -50,6 +51,7 @@ func NewLoginPolicyAddedEvent(
 	allowUserNamePassword,
 	allowRegister,
 	allowExternalIDP,
+	hideExternalIDPs,
 	forceMFA,
 	forceMFALocalOnly,
 	hidePasswordReset,
@@ -68,6 +70,7 @@ func NewLoginPolicyAddedEvent(
 	return &LoginPolicyAddedEvent{
 		BaseEvent:                  *base,
 		AllowExternalIDP:           allowExternalIDP,
+		HideExternalIDPs:           hideExternalIDPs,
 		AllowRegister:              allowRegister,
 		AllowUserNamePassword:      allowUserNamePassword,
 		ForceMFA:                   forceMFA,
@@ -106,6 +109,7 @@ type LoginPolicyChangedEvent struct {
 	AllowUserNamePassword      *bool                    `json:"allowUsernamePassword,omitempty"`
 	AllowRegister              *bool                    `json:"allowRegister,omitempty"`
 	AllowExternalIDP           *bool                    `json:"allowExternalIdp,omitempty"`
+	HideExternalIDPs           *bool                    `json:"hideExternalIdps,omitempty"`
 	ForceMFA                   *bool                    `json:"forceMFA,omitempty"`
 	ForceMFALocalOnly          *bool                    `json:"forceMFALocalOnly,omitempty"`
 	HidePasswordReset          *bool                    `json:"hidePasswordReset,omitempty"`
@@ -163,6 +167,12 @@ func ChangeAllowRegister(allowRegister bool) func(*LoginPolicyChangedEvent) {
 func ChangeAllowExternalIDP(allowExternalIDP bool) func(*LoginPolicyChangedEvent) {
 	return func(e *LoginPolicyChangedEvent) {
 		e.AllowExternalIDP = &allowExternalIDP
+	}
+}
+
+func ChangeHideExternalIDPs(hideExternalIDPs bool) func(*LoginPolicyChangedEvent) {
+	return func(e *LoginPolicyChangedEvent) {
+		e.HideExternalIDPs = &hideExternalIDPs
 	}
 }
 

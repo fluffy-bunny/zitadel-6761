@@ -109,6 +109,11 @@ message LoginSettings {
       description: "if activated, only local authenticated users are forced to use MFA. Authentication through IDPs won't prompt a MFA step in the login."
     }
   ];
+  bool hide_external_idps = 23 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      description: "defines if the allowed idps are shown in the login UI";
+    }
+  ];
 }
 
 enum SecondFactorType {

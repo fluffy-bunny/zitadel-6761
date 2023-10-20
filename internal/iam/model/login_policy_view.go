@@ -12,6 +12,7 @@ type LoginPolicyView struct {
 	AllowUsernamePassword bool
 	AllowRegister         bool
 	AllowExternalIDP      bool
+	HideExternalIDPs      bool
 	ForceMFA              bool
 	HidePasswordReset     bool
 	PasswordlessType      PasswordlessType
@@ -81,6 +82,7 @@ func (p *LoginPolicyView) ToLoginPolicyDomain() *domain.LoginPolicy {
 		AllowUsernamePassword: p.AllowUsernamePassword,
 		AllowRegister:         p.AllowRegister,
 		AllowExternalIDP:      p.AllowExternalIDP,
+		HideExternalIDPs:      p.HideExternalIDPs,
 		ForceMFA:              p.ForceMFA,
 		HidePasswordReset:     p.HidePasswordReset,
 		PasswordlessType:      passwordLessTypeToDomain(p.PasswordlessType),

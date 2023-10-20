@@ -64,6 +64,7 @@ func (wm *InstanceLoginPolicyWriteModel) NewChangedEvent(
 	allowUsernamePassword,
 	allowRegister,
 	allowExternalIDP,
+	hideExternalIdps,
 	forceMFA,
 	forceMFALocalOnly,
 	hidePasswordReset,
@@ -89,6 +90,9 @@ func (wm *InstanceLoginPolicyWriteModel) NewChangedEvent(
 	}
 	if wm.AllowExternalIDP != allowExternalIDP {
 		changes = append(changes, policy.ChangeAllowExternalIDP(allowExternalIDP))
+	}
+	if wm.HideExternalIDPs != hideExternalIdps {
+		changes = append(changes, policy.ChangeHideExternalIDPs(hideExternalIdps))
 	}
 	if wm.ForceMFA != forceMFA {
 		changes = append(changes, policy.ChangeForceMFA(forceMFA))

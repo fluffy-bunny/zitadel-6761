@@ -24,6 +24,7 @@ const (
 	LoginPolicyAllowRegisterCol         = "allow_register"
 	LoginPolicyAllowUsernamePasswordCol = "allow_username_password"
 	LoginPolicyAllowExternalIDPsCol     = "allow_external_idps"
+	LoginPolicyHideExternalIDPsCol      = "hide_external_idps"
 	LoginPolicyForceMFACol              = "force_mfa"
 	LoginPolicyForceMFALocalOnlyCol     = "force_mfa_local_only"
 	LoginPolicy2FAsCol                  = "second_factors"
@@ -65,6 +66,7 @@ func (*loginPolicyProjection) Init() *old_handler.Check {
 			handler.NewColumn(LoginPolicyAllowRegisterCol, handler.ColumnTypeBool),
 			handler.NewColumn(LoginPolicyAllowUsernamePasswordCol, handler.ColumnTypeBool),
 			handler.NewColumn(LoginPolicyAllowExternalIDPsCol, handler.ColumnTypeBool),
+			handler.NewColumn(LoginPolicyHideExternalIDPsCol, handler.ColumnTypeBool),
 			handler.NewColumn(LoginPolicyForceMFACol, handler.ColumnTypeBool),
 			handler.NewColumn(LoginPolicyForceMFALocalOnlyCol, handler.ColumnTypeBool, handler.Default(false)),
 			handler.NewColumn(LoginPolicy2FAsCol, handler.ColumnTypeEnumArray, handler.Nullable()),
@@ -187,6 +189,7 @@ func (p *loginPolicyProjection) reduceLoginPolicyAdded(event eventstore.Event) (
 		handler.NewCol(LoginPolicyAllowRegisterCol, policyEvent.AllowRegister),
 		handler.NewCol(LoginPolicyAllowUsernamePasswordCol, policyEvent.AllowUserNamePassword),
 		handler.NewCol(LoginPolicyAllowExternalIDPsCol, policyEvent.AllowExternalIDP),
+		handler.NewCol(LoginPolicyHideExternalIDPsCol, policyEvent.HideExternalIDPs),
 		handler.NewCol(LoginPolicyForceMFACol, policyEvent.ForceMFA),
 		handler.NewCol(LoginPolicyForceMFALocalOnlyCol, policyEvent.ForceMFALocalOnly),
 		handler.NewCol(LoginPolicyPasswordlessTypeCol, policyEvent.PasswordlessType),
@@ -228,6 +231,9 @@ func (p *loginPolicyProjection) reduceLoginPolicyChanged(event eventstore.Event)
 	}
 	if policyEvent.AllowExternalIDP != nil {
 		cols = append(cols, handler.NewCol(LoginPolicyAllowExternalIDPsCol, *policyEvent.AllowExternalIDP))
+	}
+	if policyEvent.HideExternalIDPs != nil {
+		cols = append(cols, handler.NewCol(LoginPolicyHideExternalIDPsCol, *policyEvent.HideExternalIDPs))
 	}
 	if policyEvent.ForceMFA != nil {
 		cols = append(cols, handler.NewCol(LoginPolicyForceMFACol, *policyEvent.ForceMFA))

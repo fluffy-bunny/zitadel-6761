@@ -28,6 +28,7 @@ type LoginPolicy struct {
 	AllowRegister              bool
 	AllowUsernamePassword      bool
 	AllowExternalIDPs          bool
+	HideExternalIDPs           bool
 	ForceMFA                   bool
 	ForceMFALocalOnly          bool
 	SecondFactors              database.Array[domain.SecondFactorType]
@@ -93,6 +94,10 @@ var (
 	}
 	LoginPolicyColumnAllowExternalIDPs = Column{
 		name:  projection.LoginPolicyAllowExternalIDPsCol,
+		table: loginPolicyTable,
+	}
+	LoginPolicyColumnHideExternalIDPs = Column{
+		name:  projection.LoginPolicyHideExternalIDPsCol,
 		table: loginPolicyTable,
 	}
 	LoginPolicyColumnForceMFA = Column{
@@ -373,6 +378,7 @@ func prepareLoginPolicyQuery(ctx context.Context, db prepareDatabase) (sq.Select
 			LoginPolicyColumnAllowRegister.identifier(),
 			LoginPolicyColumnAllowUsernamePassword.identifier(),
 			LoginPolicyColumnAllowExternalIDPs.identifier(),
+			LoginPolicyColumnHideExternalIDPs.identifier(),
 			LoginPolicyColumnForceMFA.identifier(),
 			LoginPolicyColumnForceMFALocalOnly.identifier(),
 			LoginPolicyColumnSecondFactors.identifier(),
@@ -404,6 +410,7 @@ func prepareLoginPolicyQuery(ctx context.Context, db prepareDatabase) (sq.Select
 					&p.AllowRegister,
 					&p.AllowUsernamePassword,
 					&p.AllowExternalIDPs,
+					&p.HideExternalIDPs,
 					&p.ForceMFA,
 					&p.ForceMFALocalOnly,
 					&p.SecondFactors,

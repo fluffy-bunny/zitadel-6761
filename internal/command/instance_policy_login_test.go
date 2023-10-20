@@ -73,6 +73,7 @@ func TestCommandSide_ChangeDefaultLoginPolicy(t *testing.T) {
 								true,
 								true,
 								true,
+								true,
 								domain.PasswordlessTypeAllowed,
 								"https://example.com/redirect",
 								time.Hour*1,
@@ -91,6 +92,7 @@ func TestCommandSide_ChangeDefaultLoginPolicy(t *testing.T) {
 					AllowRegister:              true,
 					AllowUsernamePassword:      true,
 					AllowExternalIDP:           true,
+					HideExternalIDPs:           true,
 					ForceMFA:                   true,
 					ForceMFALocalOnly:          true,
 					HidePasswordReset:          true,
@@ -131,6 +133,7 @@ func TestCommandSide_ChangeDefaultLoginPolicy(t *testing.T) {
 								true,
 								true,
 								true,
+								true,
 								domain.PasswordlessTypeAllowed,
 								"https://example.com/redirect",
 								time.Hour*1,
@@ -143,6 +146,7 @@ func TestCommandSide_ChangeDefaultLoginPolicy(t *testing.T) {
 					),
 					expectPush(
 						newDefaultLoginPolicyChangedEvent(context.Background(),
+							false,
 							false,
 							false,
 							false,
@@ -169,6 +173,7 @@ func TestCommandSide_ChangeDefaultLoginPolicy(t *testing.T) {
 					AllowRegister:              false,
 					AllowUsernamePassword:      false,
 					AllowExternalIDP:           false,
+					HideExternalIDPs:           false,
 					ForceMFA:                   false,
 					ForceMFALocalOnly:          false,
 					HidePasswordReset:          false,
@@ -281,6 +286,7 @@ func TestCommandSide_AddIDPProviderDefaultLoginPolicy(t *testing.T) {
 								true,
 								true,
 								true,
+								true,
 								domain.PasswordlessTypeAllowed,
 								"",
 								time.Hour*1,
@@ -313,6 +319,7 @@ func TestCommandSide_AddIDPProviderDefaultLoginPolicy(t *testing.T) {
 						eventFromEventPusher(
 							instance.NewLoginPolicyAddedEvent(context.Background(),
 								&instance.NewAggregate("INSTANCE").Aggregate,
+								true,
 								true,
 								true,
 								true,
@@ -375,6 +382,7 @@ func TestCommandSide_AddIDPProviderDefaultLoginPolicy(t *testing.T) {
 							"INSTANCE",
 							instance.NewLoginPolicyAddedEvent(context.Background(),
 								&instance.NewAggregate("INSTANCE").Aggregate,
+								true,
 								true,
 								true,
 								true,
@@ -524,6 +532,7 @@ func TestCommandSide_RemoveIDPProviderDefaultLoginPolicy(t *testing.T) {
 								true,
 								true,
 								true,
+								true,
 								domain.PasswordlessTypeAllowed,
 								"",
 								time.Hour*1,
@@ -556,6 +565,7 @@ func TestCommandSide_RemoveIDPProviderDefaultLoginPolicy(t *testing.T) {
 						eventFromEventPusher(
 							instance.NewLoginPolicyAddedEvent(context.Background(),
 								&instance.NewAggregate("INSTANCE").Aggregate,
+								true,
 								true,
 								true,
 								true,
@@ -611,6 +621,7 @@ func TestCommandSide_RemoveIDPProviderDefaultLoginPolicy(t *testing.T) {
 						eventFromEventPusher(
 							instance.NewLoginPolicyAddedEvent(context.Background(),
 								&instance.NewAggregate("INSTANCE").Aggregate,
+								true,
 								true,
 								true,
 								true,
@@ -677,6 +688,7 @@ func TestCommandSide_RemoveIDPProviderDefaultLoginPolicy(t *testing.T) {
 								true,
 								true,
 								true,
+								true,
 								domain.PasswordlessTypeAllowed,
 								"",
 								time.Hour*1,
@@ -731,6 +743,7 @@ func TestCommandSide_RemoveIDPProviderDefaultLoginPolicy(t *testing.T) {
 						eventFromEventPusher(
 							instance.NewLoginPolicyAddedEvent(context.Background(),
 								&instance.NewAggregate("INSTANCE").Aggregate,
+								true,
 								true,
 								true,
 								true,
@@ -1488,7 +1501,7 @@ func TestCommandSide_RemoveMultiFactorDefaultLoginPolicy(t *testing.T) {
 	}
 }
 
-func newDefaultLoginPolicyChangedEvent(ctx context.Context, allowRegister, allowUsernamePassword, allowExternalIDP, forceMFA, forceMFALocalOnly,
+func newDefaultLoginPolicyChangedEvent(ctx context.Context, allowRegister, allowUsernamePassword, allowExternalIDP, hideExternalIDPs, forceMFA, forceMFALocalOnly,
 	hidePasswordReset, ignoreUnknownUsernames, allowDomainDiscovery, disableLoginWithEmail, disableLoginWithPhone bool,
 	passwordlessType domain.PasswordlessType,
 	redirectURI string,
@@ -1498,6 +1511,7 @@ func newDefaultLoginPolicyChangedEvent(ctx context.Context, allowRegister, allow
 		[]policy.LoginPolicyChanges{
 			policy.ChangeAllowRegister(allowRegister),
 			policy.ChangeAllowExternalIDP(allowExternalIDP),
+			policy.ChangeHideExternalIDPs(hideExternalIDPs),
 			policy.ChangeForceMFA(forceMFA),
 			policy.ChangeForceMFALocalOnly(forceMFALocalOnly),
 			policy.ChangeAllowUserNamePassword(allowUsernamePassword),

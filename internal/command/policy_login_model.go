@@ -14,6 +14,7 @@ type LoginPolicyWriteModel struct {
 	AllowUserNamePassword      bool
 	AllowRegister              bool
 	AllowExternalIDP           bool
+	HideExternalIDPs           bool
 	ForceMFA                   bool
 	ForceMFALocalOnly          bool
 	HidePasswordReset          bool
@@ -38,6 +39,7 @@ func (wm *LoginPolicyWriteModel) Reduce() error {
 			wm.AllowRegister = e.AllowRegister
 			wm.AllowUserNamePassword = e.AllowUserNamePassword
 			wm.AllowExternalIDP = e.AllowExternalIDP
+			wm.HideExternalIDPs = e.HideExternalIDPs
 			wm.ForceMFA = e.ForceMFA
 			wm.ForceMFALocalOnly = e.ForceMFALocalOnly
 			wm.PasswordlessType = e.PasswordlessType
@@ -62,6 +64,9 @@ func (wm *LoginPolicyWriteModel) Reduce() error {
 			}
 			if e.AllowExternalIDP != nil {
 				wm.AllowExternalIDP = *e.AllowExternalIDP
+			}
+			if e.HideExternalIDPs != nil {
+				wm.HideExternalIDPs = *e.HideExternalIDPs
 			}
 			if e.ForceMFA != nil {
 				wm.ForceMFA = *e.ForceMFA

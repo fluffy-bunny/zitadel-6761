@@ -915,6 +915,7 @@ func queryLoginPolicyToDomain(policy *query.LoginPolicy) *domain.LoginPolicy {
 		AllowUsernamePassword:      policy.AllowUsernamePassword,
 		AllowRegister:              policy.AllowRegister,
 		AllowExternalIDP:           policy.AllowExternalIDPs,
+		HideExternalIDPs:           policy.HideExternalIDPs,
 		ForceMFA:                   policy.ForceMFA,
 		ForceMFALocalOnly:          policy.ForceMFALocalOnly,
 		SecondFactors:              policy.SecondFactors,

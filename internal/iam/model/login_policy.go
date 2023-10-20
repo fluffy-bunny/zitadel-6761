@@ -13,6 +13,7 @@ type LoginPolicy struct {
 	AllowUsernamePassword bool
 	AllowRegister         bool
 	AllowExternalIdp      bool
+	HideExternalIdps      bool
 	IDPProviders          []*IDPProvider
 	ForceMFA              bool
 	SecondFactors         []domain.SecondFactorType

@@ -22,6 +22,7 @@ func loginSettingsToPb(current *query.LoginPolicy) *settings.LoginSettings {
 		AllowUsernamePassword:      current.AllowUsernamePassword,
 		AllowRegister:              current.AllowRegister,
 		AllowExternalIdp:           current.AllowExternalIDPs,
+		HideExternalIdps:           current.HideExternalIDPs,
 		ForceMfa:                   current.ForceMFA,
 		ForceMfaLocalOnly:          current.ForceMFALocalOnly,
 		PasskeysType:               passkeysTypeToPb(current.PasswordlessType),

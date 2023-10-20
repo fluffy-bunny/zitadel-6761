@@ -66,6 +66,7 @@ func (wm *OrgLoginPolicyWriteModel) NewChangedEvent(
 	allowUsernamePassword,
 	allowRegister,
 	allowExternalIDP,
+	hideExternalIDPs,
 	forceMFA,
 	forceMFALocalOnly,
 	hidePasswordReset,
@@ -91,6 +92,9 @@ func (wm *OrgLoginPolicyWriteModel) NewChangedEvent(
 	}
 	if wm.AllowExternalIDP != allowExternalIDP {
 		changes = append(changes, policy.ChangeAllowExternalIDP(allowExternalIDP))
+	}
+	if wm.HideExternalIDPs != hideExternalIDPs {
+		changes = append(changes, policy.ChangeHideExternalIDPs(hideExternalIDPs))
 	}
 	if wm.ForceMFA != forceMFA {
 		changes = append(changes, policy.ChangeForceMFA(forceMFA))

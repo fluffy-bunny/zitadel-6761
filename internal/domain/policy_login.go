@@ -14,6 +14,7 @@ type LoginPolicy struct {
 	AllowUsernamePassword      bool
 	AllowRegister              bool
 	AllowExternalIDP           bool
+	HideExternalIDPs           bool
 	IDPProviders               []*IDPProvider
 	ForceMFA                   bool
 	ForceMFALocalOnly          bool

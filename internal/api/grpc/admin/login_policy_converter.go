@@ -13,6 +13,7 @@ func updateLoginPolicyToCommand(p *admin_pb.UpdateLoginPolicyRequest) *command.C
 		AllowUsernamePassword:      p.AllowUsernamePassword,
 		AllowRegister:              p.AllowRegister,
 		AllowExternalIDP:           p.AllowExternalIdp,
+		HideExternalIDPs:           p.HideExternalIdps,
 		ForceMFA:                   p.ForceMfa,
 		ForceMFALocalOnly:          p.ForceMfaLocalOnly,
 		PasswordlessType:           policy_grpc.PasswordlessTypeToDomain(p.PasswordlessType),

@@ -30,6 +30,7 @@ func writeModelToLoginPolicy(wm *LoginPolicyWriteModel) *domain.LoginPolicy {
 		AllowUsernamePassword:      wm.AllowUserNamePassword,
 		AllowRegister:              wm.AllowRegister,
 		AllowExternalIDP:           wm.AllowExternalIDP,
+		HideExternalIDPs:           wm.HideExternalIDPs,
 		HidePasswordReset:          wm.HidePasswordReset,
 		IgnoreUnknownUsernames:     wm.IgnoreUnknownUsernames,
 		AllowDomainDiscovery:       wm.AllowDomainDiscovery,
